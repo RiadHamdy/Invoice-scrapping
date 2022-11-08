@@ -1,4 +1,4 @@
-<Activity mc:Ignorable="sap sap2010" x:Class="Main" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1252.8,6218.4" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:snm="clr-namespace:System.Net.Mail;assembly=System" xmlns:str="clr-namespace:System.Text.RegularExpressions;assembly=System" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+<Activity mc:Ignorable="sap sap2010" x:Class="Main" mva:VisualBasic.Settings="{x:Null}" sap:VirtualizedContainerService.HintSize="1252.8,6329.6" sap2010:WorkflowViewState.IdRef="ActivityBuilder_1" xmlns="http://schemas.microsoft.com/netfx/2009/xaml/activities" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" xmlns:mva="clr-namespace:Microsoft.VisualBasic.Activities;assembly=System.Activities" xmlns:sap="http://schemas.microsoft.com/netfx/2009/xaml/activities/presentation" xmlns:sap2010="http://schemas.microsoft.com/netfx/2010/xaml/activities/presentation" xmlns:scg="clr-namespace:System.Collections.Generic;assembly=mscorlib" xmlns:sd="clr-namespace:System.Data;assembly=System.Data" xmlns:snm="clr-namespace:System.Net.Mail;assembly=System" xmlns:str="clr-namespace:System.Text.RegularExpressions;assembly=System" xmlns:ui="http://schemas.uipath.com/workflow/activities" xmlns:um="clr-namespace:UiPath.Mail;assembly=UiPath.Mail.Activities" xmlns:umab="clr-namespace:UiPath.Mail.Activities.Business;assembly=UiPath.Mail.Activities" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
   <TextExpression.NamespacesForImplementation>
     <scg:List x:TypeArguments="x:String" Capacity="68">
       <x:String>System.Activities</x:String>
@@ -49,6 +49,8 @@
       <x:String>UiPath.OCR.Contracts</x:String>
       <x:String>UiPath.OCR.Contracts.Activities</x:String>
       <x:String>UiPath.Core.Activities.OCR.Engines</x:String>
+      <x:String>UiPath.Mail.Activities.Business</x:String>
+      <x:String>UiPath.Shared.Activities.ConnectionService.Contracts</x:String>
     </scg:List>
   </TextExpression.NamespacesForImplementation>
   <TextExpression.ReferencesForImplementation>
@@ -89,14 +91,13 @@
       <AssemblyReference>UiPath.PDF.Activities</AssemblyReference>
       <AssemblyReference>UiPath.Excel</AssemblyReference>
       <AssemblyReference>UiPath.Excel.Activities.Design</AssemblyReference>
-      <AssemblyReference>System.Runtime.WindowsRuntime</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationNext</AssemblyReference>
       <AssemblyReference>UiPath.UIAutomationNext.Activities</AssemblyReference>
       <AssemblyReference>UiPath.Vision.Core</AssemblyReference>
       <AssemblyReference>UiPath.OCR.Contracts</AssemblyReference>
     </scg:List>
   </TextExpression.ReferencesForImplementation>
-  <Sequence sap2010:Annotation.AnnotationText="Description:&#xA;it is an attended Robot.&#xA;This is the main workflow which contain the sub-workflows. &#xA;it starts with checking if the &quot;attachment&quot; folder is exist and there is at least one file with name &quot;CustomerName_InvoiceDate_InvoiceNumber.pdf&quot; or not to decide to start downloading the emails or not.&#xA;then entering the folder and using for each loop to get the name of each file individualy and make the variable sheetname which we will use it in many things like subject of sent mail and more things&#xA;&#xA;Pre-Condition:&#xA;* A file in the desktop with path C:\Users\dell\Desktop\invoices project\Invoices Project&#xA;* connected to the orchestator.&#xA;* Activated Excel version.&#xA;Post-Acion:&#xA;Creation of attachments folder with path &quot;C:\Users\dell\Desktop\invoices project\Invoices Project\attachments&quot; which contain all the pdf files &#xA;" sap:VirtualizedContainerService.HintSize="1263.2,6153.6" sap2010:WorkflowViewState.IdRef="Sequence_6">
+  <Sequence sap2010:Annotation.AnnotationText="Description:&#xA;it is an attended Robot.&#xA;This is the main workflow which contain the sub-workflows. &#xA;it starts with checking if the &quot;attachment&quot; folder is exist and there is at least one file with name &quot;CustomerName_InvoiceDate_InvoiceNumber.pdf&quot; or not to decide to start downloading the emails or not.&#xA;then entering the folder and using for each loop to get the name of each file individualy and make the variable sheetname which we will use it in many things like subject of sent mail and more things&#xA;&#xA;Pre-Condition:&#xA;* A file in the desktop with path C:\Users\dell\Desktop\invoices project\Invoices Project&#xA;* connected to the orchestator.&#xA;* Activated Excel version.&#xA;Post-Acion:&#xA;Creation of attachments folder with path &quot;C:\Users\dell\Desktop\invoices project\Invoices Project\attachments&quot; which contain all the pdf files &#xA;" sap:VirtualizedContainerService.HintSize="1263.2,6264.8" sap2010:WorkflowViewState.IdRef="Sequence_6">
     <Sequence.Variables>
       <Variable x:TypeArguments="x:Boolean" Name="Check" />
       <Variable x:TypeArguments="x:String" Name="Filename" />
@@ -111,14 +112,14 @@
     </sap:WorkflowViewStateService.ViewState>
     <ui:PathExists Resource="{x:Null}" DisplayName="Path Exists" Exists="[check]" sap:VirtualizedContainerService.HintSize="1221.6,90.4" sap2010:WorkflowViewState.IdRef="PathExists_1" Path="C:\Users\V17RRiad\Desktop\invoices project\invoices project\attachments" PathType="Folder" />
     <ui:PathExists Resource="{x:Null}" DisplayName="Path Exists" Exists="[check_file]" sap:VirtualizedContainerService.HintSize="1221.6,90.4" sap2010:WorkflowViewState.IdRef="PathExists_2" Path="C:\Users\V17RRiad\Desktop\invoices project\invoices project\attachments" PathType="File" />
-    <If sap2010:Annotation.AnnotationText="if the two condition doesn't occur then it will download the attachments from mail " Condition="[(check = False) and (check_file = False)]" sap:VirtualizedContainerService.HintSize="1221.6,1224" sap2010:WorkflowViewState.IdRef="If_2">
+    <If sap2010:Annotation.AnnotationText="if the two condition doesn't occur then it will download the attachments from mail " Condition="[(check = False) and (check_file = False)]" sap:VirtualizedContainerService.HintSize="1221.6,1336" sap2010:WorkflowViewState.IdRef="If_2">
       <sap:WorkflowViewStateService.ViewState>
         <scg:Dictionary x:TypeArguments="x:String, x:Object">
           <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
         </scg:Dictionary>
       </sap:WorkflowViewStateService.ViewState>
       <If.Then>
-        <Sequence sap2010:Annotation.AnnotationText="Description:&#xA;This workflow for downloading the attachments. it starts by getting the password and email from orchestator server and use them to access my mail and view the last 7 unreaden mails and download the attachment with name CustomerName_InvoiceDate_InvoiceNumber.pdf &#xA;&#xA;Pre-Condition:&#xA;*A file in the desktop with path C:\Users\dell\Desktop\invoices project\Invoices Project&#xA;*connected to the orchestator&#xA;&#xA;Post-Acion:&#xA;Creation of attachments folder with path &quot;C:\Users\dell\Desktop\invoices project\Invoices Project\attachments&quot; which contain all the pdf files " DisplayName="Sequence of downloading attachments" sap:VirtualizedContainerService.HintSize="601.6,1004" sap2010:WorkflowViewState.IdRef="Sequence_2">
+        <Sequence sap2010:Annotation.AnnotationText="Description:&#xA;This workflow for downloading the attachments. it starts by getting the password and email from orchestator server and use them to access my mail and view the last 7 unreaden mails and download the attachment with name CustomerName_InvoiceDate_InvoiceNumber.pdf &#xA;&#xA;Pre-Condition:&#xA;*A file in the desktop with path C:\Users\dell\Desktop\invoices project\Invoices Project&#xA;*connected to the orchestator&#xA;&#xA;Post-Acion:&#xA;Creation of attachments folder with path &quot;C:\Users\dell\Desktop\invoices project\Invoices Project\attachments&quot; which contain all the pdf files " DisplayName="Sequence of downloading attachments" sap:VirtualizedContainerService.HintSize="601.6,1116" sap2010:WorkflowViewState.IdRef="Sequence_2">
           <Sequence.Variables>
             <Variable x:TypeArguments="scg:List(snm:MailMessage)" Name="mails" />
             <Variable x:TypeArguments="x:String" Name="pwd" />
@@ -129,28 +130,45 @@
               <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
             </scg:Dictionary>
           </sap:WorkflowViewStateService.ViewState>
-          <ui:GetPassword DisplayName="Get Password" sap:VirtualizedContainerService.HintSize="560,22.4" sap2010:WorkflowViewState.IdRef="GetPassword_1" ProtectedPassword="AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAA4sontnou6kC+I0kTKDP2ogAAAAACAAAAAAADZgAAwAAAABAAAABZrRxFx4x9it25QdsQFWU+AAAAAASAAACgAAAAEAAAAPfPILSVIEcVWBl6Kk47t9gQAAAADJsbNEqYLSAgHRndikHFhRQAAADVQNw3AyW1ELlt/6z6nOOBuD40DA==" Result="[pwd]" />
-          <ui:GetIMAPMailMessages ClientName="{x:Null}" ClientVersion="{x:Null}" FilterExpression="{x:Null}" SecurePassword="{x:Null}" TimeoutMS="{x:Null}" DeleteMessages="False" DisplayName="Get IMAP Mail Messages" Email="riadhamdyrh@gmail.com" EnableSSL="True" FilterExpressionCharacterSet="US-ASCII" sap:VirtualizedContainerService.HintSize="560,22.4" sap2010:WorkflowViewState.IdRef="GetIMAPMailMessages_1" MailFolder="Inbox" MarkAsRead="False" Messages="[mails]" OnlyUnreadMessages="True" OrderByDate="NewestFirst" Password="[pwd]" Port="993" SecureConnection="Auto" Server="imap.gmail.com" Top="7" />
-          <ui:ForEach x:TypeArguments="snm:MailMessage" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="Save the attachement for reach email in the Project folder in attachments folder by making a for loop to open each mail and save the attachment then open the next one and so on " DisplayName="For Each" sap:VirtualizedContainerService.HintSize="560,582.4" sap2010:WorkflowViewState.IdRef="ForEach`1_1" Values="[mails]">
+          <umab:GmailApplicationCard ConnectionAccountName="{x:Null}" ConnectionId="{x:Null}" Account="riadhamdyrh@gmail.com" DisplayName="Use Gmail" EmailAddress="riadhamdyrh@gmail.com" sap:VirtualizedContainerService.HintSize="560,197.6" sap2010:WorkflowViewState.IdRef="GmailApplicationCard_1" Timeout="90" UseConnectionService="False">
+            <umab:GmailApplicationCard.Body>
+              <ActivityAction x:TypeArguments="um:IMailQuickHandle">
+                <ActivityAction.Argument>
+                  <DelegateInArgument x:TypeArguments="um:IMailQuickHandle" Name="mail" />
+                </ActivityAction.Argument>
+              </ActivityAction>
+            </umab:GmailApplicationCard.Body>
+            <umab:GmailApplicationCard.ClientId>
+              <InArgument x:TypeArguments="x:String">
+                <Literal x:TypeArguments="x:String" Value="" />
+              </InArgument>
+            </umab:GmailApplicationCard.ClientId>
+            <umab:GmailApplicationCard.ClientSecret>
+              <InArgument x:TypeArguments="x:String">
+                <Literal x:TypeArguments="x:String" Value="" />
+              </InArgument>
+            </umab:GmailApplicationCard.ClientSecret>
+          </umab:GmailApplicationCard>
+          <ui:ForEach x:TypeArguments="snm:MailMessage" CurrentIndex="{x:Null}" sap2010:Annotation.AnnotationText="Save the attachement for reach email in the Project folder in attachments folder by making a for loop to open each mail and save the attachment then open the next one and so on " DisplayName="For Each" sap:VirtualizedContainerService.HintSize="560,582.4" sap2010:WorkflowViewState.IdRef="ForEach`1_4" Values="[mails]">
             <ui:ForEach.Body>
               <ActivityAction x:TypeArguments="snm:MailMessage">
                 <ActivityAction.Argument>
                   <DelegateInArgument x:TypeArguments="snm:MailMessage" Name="mail" />
                 </ActivityAction.Argument>
-                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="524.8,413.6" sap2010:WorkflowViewState.IdRef="Sequence_1">
+                <Sequence DisplayName="Body" sap:VirtualizedContainerService.HintSize="524.8,413.6" sap2010:WorkflowViewState.IdRef="Sequence_12">
                   <sap:WorkflowViewStateService.ViewState>
                     <scg:Dictionary x:TypeArguments="x:String, x:Object">
                       <x:Boolean x:Key="IsExpanded">True</x:Boolean>
                     </scg:Dictionary>
                   </sap:WorkflowViewStateService.ViewState>
-                  <If sap2010:Annotation.AnnotationText="the mail should be with name Techno computers&#xA;" Condition="[mail.Subject.Contains(&quot;Techno Computers&quot;)]" sap:VirtualizedContainerService.HintSize="483.2,320.8" sap2010:WorkflowViewState.IdRef="If_1">
+                  <If sap2010:Annotation.AnnotationText="the mail should be with name Techno computers&#xA;" Condition="[mail.Subject.Contains(&quot;Techno Computers&quot;)]" sap:VirtualizedContainerService.HintSize="483.2,320.8" sap2010:WorkflowViewState.IdRef="If_4">
                     <sap:WorkflowViewStateService.ViewState>
                       <scg:Dictionary x:TypeArguments="x:String, x:Object">
                         <x:Boolean x:Key="IsAnnotationDocked">True</x:Boolean>
                       </scg:Dictionary>
                     </sap:WorkflowViewStateService.ViewState>
                     <If.Then>
-                      <ui:SaveMailAttachments Attachments="{x:Null}" DisplayName="Save Attachments" ExcludeInlineAttachments="False" Filter="[a-z]_([0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9])_([0-9][0-9][0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9][0-9]).pdf" FolderPath="attachments" sap:VirtualizedContainerService.HintSize="333.6,88" sap2010:WorkflowViewState.IdRef="SaveMailAttachments_1" Message="[mail]" OverwriteExisting="False" />
+                      <ui:SaveMailAttachments Attachments="{x:Null}" DisplayName="Save Attachments" ExcludeInlineAttachments="False" Filter="[a-z]_([0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9])_([0-9][0-9][0-9][0-9][0-9]|[0-9][0-9][0-9][0-9][0-9][0-9]).pdf" FolderPath="attachments" sap:VirtualizedContainerService.HintSize="333.6,88" sap2010:WorkflowViewState.IdRef="SaveMailAttachments_2" Message="[mail]" OverwriteExisting="False" />
                     </If.Then>
                   </If>
                 </Sequence>
@@ -326,15 +344,9 @@
                             </ui:ReadCell>
                             <ui:AddQueueItem ServiceBaseAddress="{x:Null}" TimeoutMS="{x:Null}" DisplayName="Add Queue Item" sap:VirtualizedContainerService.HintSize="433.6,22.4" sap2010:WorkflowViewState.IdRef="AddQueueItem_1" Priority="Normal" QueueType="invoices_project">
                               <ui:AddQueueItem.ItemInformation>
-                                <InArgument x:TypeArguments="x:String" x:Key="sub_total">
-                                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="sub_total_value1" />
-                                </InArgument>
-                                <InArgument x:TypeArguments="x:String" x:Key="GST 8%">
-                                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="GST_value1" />
-                                </InArgument>
-                                <InArgument x:TypeArguments="x:String" x:Key="total ">
-                                  <mva:VisualBasicValue x:TypeArguments="x:String" ExpressionText="total_value1" />
-                                </InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="sub_total">[sub_total_value1]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="GST 8%">[GST_value1]</InArgument>
+                                <InArgument x:TypeArguments="x:String" x:Key="total ">[total_value1]</InArgument>
                               </ui:AddQueueItem.ItemInformation>
                             </ui:AddQueueItem>
                             <Assign sap:VirtualizedContainerService.HintSize="433.6,60" sap2010:WorkflowViewState.IdRef="Assign_4">
